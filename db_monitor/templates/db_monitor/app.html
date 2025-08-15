@@ -1,0 +1,26 @@
+{% extends "db_monitor/layout.html" %}
+{% load static %}
+{% block app %}
+        <div class="btn-container-server">
+            <a class="btn" href="/">RECARGAR</a>
+        </div>
+        <p id="date" class="time">Última actualización: {{ time|date:"H:i:s - d M Y" }} </p>
+<div class="db-container">
+            {% for id,server in data.items %}
+            <div class="db-data">
+                <article>
+                    <div class="pending server"></div>
+                    <p class="server-name">{{ server.server }}</p>
+                    <p id="server-{{ server.id }}" class="light">{{ server.status }}</p>
+                    <p>ip: {{ server.ipaddr }}</p>
+                </article>
+                <div class="btn-container">
+                    <a class="btn" href="{% url 'report' server.server %}">Reporte</a>
+                </div>
+            </div>
+            {% endfor%}
+        </div>
+{% endblock %}
+    {% block scripts %}
+    <script src="{% static 'db_monitor/js/main.js' %}?v=1" defer></script>
+    {% endblock %}

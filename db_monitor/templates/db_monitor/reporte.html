@@ -1,0 +1,31 @@
+{% extends "db_monitor/layout.html" %}
+{% load static %}
+    {% block app %}
+        <div class="btn-container-server">
+            <a class="btn" href="/">SERVIDORES</a>
+        </div>
+        <section class="table-center">
+        <div class="table-container">
+        <table >
+            <thead>
+                <tr>
+                    {% if reporte %}
+                        {% for titulo in reporte.0.keys %}
+                            <th>{{ titulo }}</th>
+                        {% endfor %}
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for datos in reporte %}
+                    <tr>
+                        {% for dato in datos.values %}
+                            <td>{{ dato }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+        </section>
+    {% endblock %}

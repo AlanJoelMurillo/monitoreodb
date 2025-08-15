@@ -1,0 +1,550 @@
+{% load static %}
+<html lang="es"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base de Datos - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Reseteo de márgenes y relleno */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Fuente y colores generales */
+        body, html {
+            /* background-color: #eee; */
+            font-family: "Montserrat", sans-serif !important;
+            background-color: #f0f0f0;
+            min-height: 100vh; /* Permitir que la página crezca según el contenido */
+            overflow-x: hidden; /* Evitar scroll horizontal */
+        }
+
+        body{
+            background-image: url("/du/static/images/bg-du.jpeg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        /* Estilos del contenedor principal */
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            background-color: transparent;
+        }
+
+        /* Estilos del header tipo cinta */
+        .header {
+            width: 100%;
+            background: #e5e5e6; /* Efecto de cinta */
+            display: flex;
+            flex-direction: column; /* Cada texto en su propia fila */
+            align-items: center;
+            justify-content: center;
+            height: 9rem; /* Altura del header */
+            position: fixed; 
+            top: 1.5rem;
+            left: 0;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+            text-transform: uppercase;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Estilo para el primer span "PLATAFORMA DE" */
+        .header .header-text-small {
+            margin-top: .8rem;
+            font-size: 2.1rem; /* Más pequeño */
+            color: #831f46;
+        }
+
+        /* Estilo para el segundo span "TRÁMITES" */
+        .header .header-text-large {
+            font-size: 3.5rem; /* Aumentamos tamaño */
+            font-weight: bold;
+            color: #003257; /* Color institucional */
+            text-transform: uppercase;
+            text-shadow: 2px 2px 5px rgba(0, 50, 87, 0.3); /* Sombra sutil para resaltar */
+            letter-spacing: 2px; /* Espaciado entre letras para mejor lectura */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Estilos del footer */
+        .footer {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 1.5rem 0; /* Espaciado para dar aire */
+            position: fixed;
+            bottom: 1.5rem;
+            
+            left: 0;
+            text-align: center;
+        }
+
+        /* Ajuste de imagen dentro del footer */
+        .footer img {
+            max-width: 400px; /* Tamaño controlado */
+            height: auto;
+            opacity: 0.9; /* Ligera transparencia para suavizar */
+        }
+
+        /* Contenedor del contenido dividido en columnas */
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            width: 100%;
+            max-width: 1000px;
+            gap: 2rem;
+            background-color: transparent;
+        }
+
+        /* Estilo para las columnas */
+        .image-column, .login-column {
+            border-radius: 20px;
+            box-shadow: -4px 8px 12px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            z-index: 1;
+        }
+
+        /* Columna de imagen */
+        .image-column {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .image-column img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Columna de login */
+        .login-column {
+            flex: 1;
+            padding: 2rem;
+            background: linear-gradient(135deg, #831F46 0%, #525B68 100%);
+            color: white;
+        }
+
+        /* Contenedor del formulario de login */
+        .login-box {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #F0F0F0;
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #F0F0F0;
+            font-size: 1rem;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 20px 0 0 20px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        .input-group-append {
+            background-color: transparent; /* Fondo transparente */
+            border: none; /* Sin borde */
+            padding: 0 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-group-append i {
+            font-size: 1.2rem;
+            color: #f0f0f0; /* Color claro para el ícono */
+        }
+
+        .form-group input:focus {
+            border-color: #831F46;
+            outline: none;
+        }
+
+        /* Botón de inicio de sesión */
+        .login-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #525B68;
+            color: #F0F0F0;
+            border: none;
+            border-radius: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #C9CACB;
+            color: #525B68;
+        }
+
+        /* SVGs de fondo */
+        .svg-bg {
+            position: absolute;
+            z-index: 0;
+            opacity: 0.05;
+            max-height: 100vh; /* Aseguramos que los SVG no desborden la vista */
+        }
+
+        /* Estilos específicos para pantallas grandes */
+        @media (min-width: 769px) {
+            body, html {
+                max-height: 100vh; /* Aseguramos que el contenido no exceda el tamaño de la pantalla en pantallas grandes */
+                overflow-y: hidden; /* Evitar scroll vertical en pantallas grandes */
+            }
+
+            .container {
+                max-height: 100vh; /* Limitar la altura máxima del contenedor al 100% de la pantalla */
+            }
+        }
+
+        /* Responsive para dispositivos móviles */
+        @media (max-width: 768px) {
+            .container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                min-width: 100vw;
+                padding: 20px;
+            }
+
+            .content {
+                flex-direction: column;
+                gap: 1rem;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                text-align: center;
+            }
+
+            .image-column, .login-column {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+            }
+
+            .header img {
+                height: 8rem;
+            }
+
+            .login-box {
+                width: 100%;
+                max-width: 400px;
+                margin: 0 auto;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            .header {
+                height: auto;
+                padding: 0.8rem;
+                top: 0.5rem;
+            }
+
+            .header .header-text-small {
+                font-size: clamp(1rem, 4vw, 1.8rem);
+            }
+
+            .header .header-text-large {
+                font-size: clamp(1.8rem, 5vw, 3rem);
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .header {
+            width: 100%;
+            background: #e5e5e6; /* Efecto de cinta */
+            display: flex;
+            flex-direction: column; /* Cada texto en su propia fila */
+            align-items: center;
+            justify-content: center;
+            height: 5rem; /* Altura del header */
+       /*     position: fixed; */
+         /*   top: 1.5rem;*/
+            left: 0;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+            text-transform: uppercase;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Estilo para el primer span "PLATAFORMA DE" */
+        .header .header-text-small {
+            margin-top: .8rem;
+            font-size: 1.1rem; /* Más pequeño */
+            color: #831f46;
+        }
+
+            .header img {
+                height: 4rem;
+            }
+
+            .login-box h2 {
+                font-size: 1.25rem;
+            }
+
+            .form-group input {
+                padding: 0.6rem;
+            }
+
+            .login-btn {
+                padding: 0.6rem;
+                font-size: 0.9rem;
+            }
+
+            .content {
+                gap: .5 rem;
+            }
+
+            .image-column, .login-column {
+                justify-content: center;
+                align-items: center;
+            }
+
+            .header {
+                padding: 0.1rem;
+            }
+
+            .header .header-text-small {
+                font-size: clamp(0.9rem, 3.5vw, 1.5rem);
+            }
+
+            .header .header-text-large {
+                font-size: clamp(1.5rem, 4vw, 2.5rem);
+            }
+
+
+
+             /* Estilos del footer */
+        .footer {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 1.5rem 0; /* Espaciado para dar aire */
+           /* position: fixed;
+            bottom: 1.5rem;
+            */
+            height: 2rem;
+            left: 0;
+            text-align: center;
+        }
+
+        /* Ajuste de imagen dentro del footer */
+        .footer img {
+            max-width: 200px; /* Tamaño controlado */
+            height: auto;
+            opacity: 0.9; /* Ligera transparencia para suavizar */
+        }
+
+
+        }
+
+        .text-small {
+            text-align: center;
+            margin-top: 1em;
+        }
+        .text-small strong {
+            text-decoration: overline;
+            /* text-decoration-style: double; */
+        }
+
+        /* Estilo para la alerta flotante */
+        .alert-temporal {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #d9534f; /* Color rojo de alerta */
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .alert-show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+
+        <div id="flashMessage" class="alert-temporal"></div>
+        <!-- Header -->
+        <div class="header">
+            <span class="header-text-small">PLATAFORMA DE</span>
+            <span class="header-text-large">Monitoreo de Bases de Datos</span>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Image Column -->
+            <div class="image-column">
+                <img src="{% static 'db_monitor/assets/Juárez 2024-2027-01.png' %}" alt="Logo Municipio Juárez">
+            </div>
+
+            <!-- Login Column -->
+            <div class="login-column">
+                <div class="login-box">
+                    <h2>Iniciar sesión</h2>
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="email">Usuario:</label>
+                            <div class="input-group">
+                                {{form.username}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Contraseña:</label>
+                            <div class="input-group">
+                                {{form.password}}
+                            </div>
+                        </div>
+                        <button type="submit" class="login-btn">Iniciar sesión</button>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <img src="{% static 'db_monitor/assets/jrzconectado.png' %}" alt="Juárez Conectado">
+       
+    </div>
+
+    <script>
+        function obtenerURLBase() {
+        const host = window.location.host;
+        const protocolo = window.location.protocol;
+        const pathParts = window.location.pathname.split('/').filter(part => part); // Dividir la ruta y filtrar partes vacías
+
+        const project = pathParts.length > 0 ? pathParts[0] : ''; // Obtener el primer valor después del host
+
+        // Construir la URL base
+        let urlBase = `${protocolo}//${host}`;
+
+        // Verificar si el entorno es de pruebas o producción (opcional)
+        if (host.includes('localhost') || host.includes('dev2')) {
+            // Configura la URL base para el entorno de pruebas
+            urlBase += `/${project}`;
+        } else {
+            // Configura la URL base para el entorno de producción
+            urlBase += `/${project}`;
+        }
+            
+        return urlBase;
+        }
+        // const urlBase = obtenerURLBase();
+
+        // Generar SVGs aleatorios de manera responsiva
+        function generateRandomSVGs() {
+            const body = document.body;
+            const svgs = [`${urlBase}/static/images/icons/nopales.svg`, `${urlBase}/static/images/icons/elementos-x.svg`];
+            
+            for (let i = 0; i < 12; i++) {
+                const img = document.createElement('img');
+                img.src = svgs[Math.floor(Math.random() * svgs.length)];
+                img.classList.add('svg-bg');
+    
+                // Limitar el tamaño máximo de los SVGs de forma responsiva
+                const size = Math.floor(Math.random() * 150) + 50; // Tamaño más pequeño para móviles
+                img.style.width = `${size}px`;
+                img.style.height = `${size}px`;
+    
+                // Limitar la posición dentro del viewport
+                img.style.position = 'absolute';
+                img.style.left = `${Math.random() * 80}vw`; // Limitar dentro del viewport
+                img.style.top = `${Math.random() * 90}vh`;
+    
+                img.style.pointerEvents = 'none'; // Evitar que los SVGs interfieran con la interacción del usuario
+    
+                body.appendChild(img);
+            }
+        }
+    
+        window.onload = generateRandomSVGs;
+
+        window.onload = function() {
+            const flashMessage = document.getElementById('flashMessage');
+            
+            if (flashMessage && flashMessage.textContent.trim() !== '') {
+                flashMessage.classList.add('alert-show'); // Mostrar alerta
+
+                // Desvanecer y eliminar la alerta después de 5 segundos
+                setTimeout(() => {
+                    flashMessage.classList.remove('alert-show'); // Ocultar alerta
+                }, 3000);
+            }
+        };
+
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const passwordIcon = document.getElementById('password-icon');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            // Cambiar ícono según el tipo de input
+            passwordIcon.classList.toggle('fa-eye');
+            passwordIcon.classList.toggle('fa-eye-slash');
+        }
+
+    </script>   
+    
+
+
+</body></html>

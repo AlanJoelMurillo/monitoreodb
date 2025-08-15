@@ -1,0 +1,6 @@
+asgiref==3.8.1
+Django==4.2.16
+django-environ==0.11.2
+pyodbc==5.2.0
+sqlparse==0.5.3
+tzdata==2025.2

@@ -1,0 +1,37 @@
+# === Archivos sensibles ===
+.env
+
+# === Entorno virtual ===
+venv/
+.venv/
+
+# === Archivos de Python ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# === Archivos de configuración del sistema ===
+.DS_Store
+Thumbs.db
+
+# === Archivos de base de datos local ===
+*.sqlite3
+
+# === Archivos de logs ===
+*.log
+
+# === Archivos de migraciones cacheadas ===
+**/migrations/__pycache__/
+
+# === Archivos compilados por el navegador ===
+staticfiles/
+
+# === Archivos generados por collectstatic ===
+static/
+
+# === Archivos de desarrollo (VSCode, PyCharm, etc.) ===
+.vscode/
+.idea/
+
+
