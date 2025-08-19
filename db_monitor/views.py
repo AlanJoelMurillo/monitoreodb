@@ -33,7 +33,7 @@ def show_status(request):
     #Se crea un string con las credenciales
     for cred in credentials:
         i = i + 1
-        conn_str = f'DRIVER={{FreeTDS}};SERVER={cred["ip"]};PORT=5000;DATABASE=master;UID=usr_monitorweb;PWD={cred["pass"]};TDS_Version=5.0;'
+        conn_str = f'DRIVER={{{env("DRIVER")}}};SERVER={cred["ip"]};PORT=5000;DATABASE=master;UID=usr_monitorweb;PWD={cred["pass"]};TDS_Version=5.0;'
 
         try: 
             newDic[i] = {
@@ -70,7 +70,7 @@ def check_status(request):
     i = 0    
     for cred in credentials:
         i = i + 1
-        conn_str = f'DRIVER={{FreeTDS}};SERVER={cred["ip"]};PORT=5000;DATABASE=master;UID=usr_monitorweb;PWD={cred["pass"]};TDS_Version=5.0;'
+        conn_str = f'DRIVER={{{env("DRIVER")}}};SERVER={cred["ip"]};PORT=5000;DATABASE=master;UID=usr_monitorweb;PWD={cred["pass"]};TDS_Version=5.0;'
         try: 
             newDic[i] = {
                  "id" : i,
@@ -101,7 +101,7 @@ def check_status(request):
 def show_report(request,server):
     for cred in credentials:
          if cred["name"] == server:
-            conn_str = f'DRIVER={{FreeTDS}};SERVER={cred["ip"]};PORT=5000;DATABASE=master;UID=usr_monitorweb;PWD={cred["pass"]};TDS_Version=5.0;'
+            conn_str = f'DRIVER={{{env("DRIVER")}}};SERVER={cred["ip"]};PORT=5000;DATABASE=master;UID=usr_monitorweb;PWD={cred["pass"]};TDS_Version=5.0;'
             try: 
                 conn = pyodbc.connect(conn_str,timeout=1)
                 cursor = conn.cursor()

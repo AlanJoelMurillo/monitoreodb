@@ -32,7 +32,12 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = ["10.236.62.67","monitoreodb.gobjuarez.mpio","monitoreodb.juarez.gob.mx"]
+raw_allowed_hosts = env("ALLOWED_HOSTS")
+if raw_allowed_hosts == "*":
+    ALLOWED_HOSTS = ["*"]
+else:
+    ALLOWED_HOSTS= raw_allowed_hosts.split(",")
+
 CSRF_TRUSTED_ORIGINS = ['https://monitoreodb.gobjuarez.mpio',"https://monitoreodb.juarez.gob.mx"]
 
 
@@ -123,11 +128,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_ROOT = '/home/amurillo/apps/db_manager/staticfiles'
+
 STATIC_URL = '/static/'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
-
+if env("ENVIRONMENT") == "development":
+    STATICFILES_DIRS = [
+        BASE_DIR / "staticfiles",   # carpeta de estáticos locales en desarrollo
+    ]
+elif env("ENVIRONMENT") == "production":
+    STATIC_ROOT = '/home/amurillo/apps/db_manager/staticfiles'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
