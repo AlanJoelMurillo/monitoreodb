@@ -30,7 +30,7 @@ env.read_env(os.path.join(BASE_DIR_ENV,".env"))
 SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = ["10.236.62.67","monitoreodb.gobjuarez.mpio","monitoreodb.juarez.gob.mx"]
 CSRF_TRUSTED_ORIGINS = ['https://monitoreodb.gobjuarez.mpio',"https://monitoreodb.juarez.gob.mx"]
