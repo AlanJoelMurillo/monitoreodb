@@ -14,8 +14,10 @@
     <header class="header">
             <form action="{% url 'logout' %}" method="POST">
                 {% csrf_token %}
-                <button  class="profile" type="submit">Log out</button>
+                <button  class="header-item logout" type="submit">Cerrar Sesion</button>
             </form>
+            <span>|</span>
+            <a href="" class="header-item">Mensajería</a>
     </header>
     <main>
 
