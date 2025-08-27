@@ -136,6 +136,7 @@ if env("ENVIRONMENT") == "development":
     STATICFILES_DIRS = [
         BASE_DIR / "staticfiles",   # carpeta de estáticos locales en desarrollo
     ]
+    STATIC_ROOT = BASE_DIR / "staticfiles_collected"
 elif env("ENVIRONMENT") == "production":
     STATIC_ROOT = '/home/amurillo/apps/db_manager/staticfiles'
 # Default primary key field type

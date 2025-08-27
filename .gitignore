@@ -26,7 +26,7 @@ Thumbs.db
 
 # === Archivos compilados por el navegador ===
 staticfiles/
-
+staticfiles_collected/
 # === Archivos generados por collectstatic ===
 static/
 

@@ -1,0 +1,52 @@
+{% extends "db_monitor/layout.html" %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'db_monitor\css\styleMensajeria.css' %}">
+{% endblock %}
+
+{% block app %}
+<h1 class="titulo">Mensajería</h1>
+<main class="main">
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="form_type" value="change_state">
+
+        <section class="botones">
+            <button class="btn_encender" type="submit" name="state" value="on">Encender</button>    
+            <button class="btn_apagar" type="submit" name="state" value="off">Apagar</button>
+        </section>
+    </form>
+    <section class="forms-select">
+        <form method="post" class="select-form">
+            {% csrf_token %}
+            <input type="hidden" name="form_type" value="pause_messages">
+
+            <label class="select-label">Pausar mensajería</label>
+            <select name="pause" class="select-select">
+                <option value="3600">1 hora</option>
+                <option value="10800">3 horas</option>
+                <option value="28800">8 horas</option>
+                <option value="86400">24 horas</option>
+            </select>
+            <button type="submit" class="select-button">Aplicar</button>
+        </form>
+        <form method="post" class="select-form">
+            {% csrf_token %}
+            <input type="hidden" name="form_type" value="change_interval">
+
+            <label class="select-label">frecuencia de monitoreo</label>
+            <select name="interval" class="select-select">
+                <option value="60">1 minuto</option>
+                <option value="600">10 minutos</option>
+                <option value="1800">30 minutos</option>
+                <option value="3600">1 hora</option>
+            </select>
+
+            <button type="submit" class="select-button">Aplicar</button>
+        </form>
+    </section>
+</main>      
+
+
+{% endblock %}

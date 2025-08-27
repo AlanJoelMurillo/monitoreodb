@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    {% block extra_head %}{% endblock %}
     <title>DB Monitor</title>
 </head>
 <body>
@@ -17,7 +18,10 @@
                 <button  class="header-item logout" type="submit">Cerrar Sesion</button>
             </form>
             <span>|</span>
-            <a href="" class="header-item">Mensajería</a>
+            <a href="{% url 'status' %}" class="header-item" >Monitor</a>
+            <span>|</span>
+            <a href="{% url 'mensajes' %}" class="header-item">Mensajería</a>
+            
     </header>
     <main>
 

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 import pyodbc
@@ -124,7 +124,28 @@ def show_report(request,server):
                 print(" Error inesperado:", e)
                 return render(request, "db_monitor/error.html",errorContext)
 
+@login_required
+def mensajeria(request):
+    if request.method == "POST":
+        if request.POST.get("form_type") == "change_state":
+            state = request.POST.get("state")
+            if state == "on":
+                print("Unix - enciendelo")
+            elif state == "off":
+                print("Unix - apagalo")
+        elif request.POST.get("form_type") == "pause_messages":
+            pause = request.POST.get("pause")
+            print("Unix - pausa por ", pause)
+        elif request.POST.get("form_type") == "change_interval":
+            interval = request.POST.get("interval")
+            print("Unix - cambia intervalo a ",interval)
+            
+        
+    return render(request,"db_monitor/mensajeria.html") 
+
+
 def login(request):
+    
     return render(request,"db_monitor/login.html")
     
 
