@@ -137,21 +137,25 @@ def enviar_comando_unix(data_dict):
             return respuesta.decode()
     except Exception as e:
         print("Error al comunicarse con el socket Unix:", e)
-        return f"Error: {e}"
+        return "Servidor Apagado, logica correcta"
 
 @login_required
 def mensajeria(request):
     mensaje_respuesta = ""
     if request.method == "POST":
-        if request.POST.get("form_type") == "change_state":
-            state = request.POST.get("state")
-            mensaje_respuesta = enviar_comando_unix({"action": "change_state", "value": state})
-        elif request.POST.get("form_type") == "pause_messages":
-            pause = int(request.POST.get("pause"))
-            mensaje_respuesta = enviar_comando_unix({"action": "pause_messages", "value": pause})
-        elif request.POST.get("form_type") == "change_interval":
-            interval = int(request.POST.get("interval"))
-            mensaje_respuesta = enviar_comando_unix({"action": "change_interval", "value": interval})
+        try:
+            data = json.loads(request.body)
+            action = data.get("action")
+            value = data.get("value")
+            if action in ["change_state", "pause_messages", "change_interval"]:
+                mensaje_respuesta = enviar_comando_unix({"action": action, "value": value})
+                return JsonResponse({"respuesta": mensaje_respuesta})
+            else:
+                mensaje_respuesta = "Acción no válida"
+        except json.JSONDecodeError:
+            mensaje_respuesta = "Error al decodificar JSON"
+        except Exception as e:
+            mensaje_respuesta = f"Error inesperado: {e}"
     return render(request, "db_monitor/mensajeria.html", {"respuesta": mensaje_respuesta})
 
 def login(request):

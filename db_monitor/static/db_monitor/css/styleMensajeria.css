@@ -19,9 +19,18 @@
     border-radius: 10px;
     padding: 5px 10px;
     width: 200px;
-}
-.btn_encender:hover{
+    box-shadow: 0 0 12px rgba(0,0,0,0.4);
     cursor: pointer;
+    font-weight: bold;
+    color: #3B7A57;
+}
+
+.btn_encender:disabled{
+    border: solid 3px #8f8e8e;
+    background: #a7a6a6;
+    color: white;
+    cursor: default;
+   
 }
 
 .btn_apagar{
@@ -32,6 +41,16 @@
     border-radius: 10px;
     padding: 5px 10px;
     width: 200px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.4);
+    font-weight: bold;
+    color: #B71C1C;
+}
+
+.btn_apagar:disabled{
+    border: solid 3px #8f8e8e;
+    background: #a7a6a6;
+    color: white;
+    cursor:default;
 }
 
 
