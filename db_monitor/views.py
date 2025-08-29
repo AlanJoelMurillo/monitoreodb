@@ -5,12 +5,15 @@ import pyodbc
 import environ
 import os
 from django.utils import timezone
-
+import socket
+import json
 
 #variables de entorno
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 env = environ.Env(DEBUG=(bool,False))
 env.read_env(os.path.join(BASE_DIR,".env"))
+SOCKET_PATH = "/tmp/frecuencia.sock"
+
 
 #variables de entorno
 credentials = [
@@ -124,25 +127,32 @@ def show_report(request,server):
                 print(" Error inesperado:", e)
                 return render(request, "db_monitor/error.html",errorContext)
 
+def enviar_comando_unix(data_dict):
+    try:
+        with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as cliente:
+            cliente.connect(SOCKET_PATH)
+            mensaje = json.dumps(data_dict).encode()
+            cliente.sendall(mensaje)
+            respuesta = cliente.recv(1024)
+            return respuesta.decode()
+    except Exception as e:
+        print("Error al comunicarse con el socket Unix:", e)
+        return f"Error: {e}"
+
 @login_required
 def mensajeria(request):
+    mensaje_respuesta = ""
     if request.method == "POST":
         if request.POST.get("form_type") == "change_state":
             state = request.POST.get("state")
-            if state == "on":
-                print("Unix - enciendelo")
-            elif state == "off":
-                print("Unix - apagalo")
+            mensaje_respuesta = enviar_comando_unix({"action": "change_state", "value": state})
         elif request.POST.get("form_type") == "pause_messages":
-            pause = request.POST.get("pause")
-            print("Unix - pausa por ", pause)
+            pause = int(request.POST.get("pause"))
+            mensaje_respuesta = enviar_comando_unix({"action": "pause_messages", "value": pause})
         elif request.POST.get("form_type") == "change_interval":
-            interval = request.POST.get("interval")
-            print("Unix - cambia intervalo a ",interval)
-            
-        
-    return render(request,"db_monitor/mensajeria.html") 
-
+            interval = int(request.POST.get("interval"))
+            mensaje_respuesta = enviar_comando_unix({"action": "change_interval", "value": interval})
+    return render(request, "db_monitor/mensajeria.html", {"respuesta": mensaje_respuesta})
 
 def login(request):
     
