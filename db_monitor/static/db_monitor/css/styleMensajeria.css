@@ -1,0 +1,101 @@
+:root{
+  --guinda-primario: #822046;
+  --guinda-secundario: #5E1732;
+  --fondo-blanco: #F3F6F9;
+  --blanco-items: #fff;
+  --borde: #dfdfdf;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btn_encender{
+    flex: 0 1 auto;
+    border: solid 3px #3B7A57;
+    background-color: #A3D977;
+    border-radius: 10px;
+    padding: 5px 10px;
+    width: 200px;
+}
+.btn_encender:hover{
+    cursor: pointer;
+}
+
+.btn_apagar{
+    cursor: pointer;
+    flex: 0 0 auto;
+    border: solid 3px #B71C1C;
+    background-color: #F28B82;
+    border-radius: 10px;
+    padding: 5px 10px;
+    width: 200px;
+}
+
+
+.botones{
+    padding-left: 40px;
+    display: flex;
+    flex-direction: column;  
+    gap: 10px;
+    align-items: start;
+
+}
+
+.titulo{
+    padding-left: 40px;
+    margin-bottom: 30px;
+}
+
+
+.select-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ background-color: var(--blanco-items);
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 15px;
+
+    border: 2px solid var(--borde);
+    color: #242323;
+    box-shadow: 0 0 12px rgba(0,0,0,0.4);
+}
+
+.select-label{
+    font-weight: bold;
+}
+
+.select-select{
+    width: 200px;
+    border-radius: 10px;
+}
+
+.select-button{
+    width: 100px;
+    border-radius: 10px;
+    margin-top: 10px;
+    display: inline-block;
+    background-color: var(--blanco-items);
+    padding: 5px 20px;
+    border-radius: 9999px;
+    transition: background-color 0.2 ease;
+
+}
+.select-button:hover{
+    background-color: rgba(179, 172, 172, 0.678);
+    cursor: pointer;
+}
+
+.forms-select{
+    margin-top: 20px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: row ;
+    padding-left: 40px;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+

@@ -28,7 +28,7 @@ Thumbs.db
 staticfiles/
 staticfiles_collected/
 # === Archivos generados por collectstatic ===
-static/
+
 
 # === Archivos de desarrollo (VSCode, PyCharm, etc.) ===
 .vscode/

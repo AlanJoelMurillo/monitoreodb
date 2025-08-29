@@ -1,0 +1,276 @@
+/* Variables */
+:root{
+  --guinda-primario: #822046;
+  --guinda-secundario: #5E1732;
+  --fondo-blanco: #F3F6F9;
+  --blanco-items: #fff;
+  --borde: #dfdfdf;
+}
+
+/* Reset básico y base para proyecto */
+
+/* Box sizing para todos los elementos */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Elimina márgenes y paddings por defecto, y hace que el box model sea más intuitivo */
+
+/* Estilos básicos para body */
+body {
+  font-family: "montserrat", Helvetica, sans-serif;
+  line-height: 1.5;
+  background-color: var(--fondo-blanco);
+  color: #222;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main{
+  flex: 1;
+}
+
+/* Para que imágenes y videos no desborden */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Para links */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Para listas */
+ul, ol {
+  list-style: none;
+}
+
+/* Para inputs y botones, que no hereden margen/padding extra */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* Para que los encabezados tengan un poco de espacio */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+}
+
+/* Opcional: para evitar que el usuario seleccione texto accidentalmente */
+.user-select-none {
+  user-select: none;
+}
+
+
+#title{
+
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-family: "Montserrat";
+  font-size: 28px;
+  font-weight: 800;
+  background: linear-gradient(to right, #7F1F45, #C0819A);
+  --webkit-background-clip:text
+  --webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent
+
+}
+
+h2,h3{
+  color: #fff;
+}
+
+
+.db-container{
+    border-radius: 15px;
+    background-color: var(--fondo-blanco);
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px,auto));
+    gap: 1.5rem;
+    justify-content: center;
+    padding: 1rem;
+
+    
+
+    color: #fff;
+    gap: 10px 20px;
+    margin-top: 20px;
+}
+
+
+.db-data{
+    display:flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: var(--blanco-items);
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 15px;
+    width: 180px;
+    border: 2px solid var(--borde);
+    color: #242323;
+    box-shadow: 0 0 12px rgba(0,0,0,0.4);
+
+}
+
+.server{
+  border-style: solid;
+  border-color: #222;
+  border-width: 1px;
+}
+
+.pending{
+    width: 20px;
+    height: 20px;
+    background-color: gray;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.running{
+    width: 20px;
+    height: 20px;
+    background-color: #06730D;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.down{
+    width: 20px;
+    height: 20px;
+    background-color: #F20D0D;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.sleep{
+    border-color: black 1;
+    width: 20px;
+    height: 20px;
+    background-color: #C7C40A;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.header{
+  background-color: var(--guinda-primario) ;
+  color: #FEE7E7;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.link-login{
+  display: block;
+
+}
+
+.header-item{
+  display: inline-block;
+  background-color: transparent;
+  border: none;
+  font-size: 12px;
+  color: var(--blanco-items);
+  margin: 5px;
+  padding: 5px;
+  transition: background-color 0.2 ease;
+  border-radius: 10px;
+}
+.header-item:hover{
+  background-color: #b3aaaab5;
+}
+
+.logout:hover{
+  background-color: rgba(187, 30, 30, 0.826);
+  cursor: pointer;
+}
+
+.server-name{
+  font-weight: bold;
+}
+
+.btn-container{
+  display:flex;
+  justify-content: center;
+}
+
+.btn-container-server{
+  display:flex;
+  justify-content: flex-start;
+  padding: 10px; ;
+}
+
+.btn{
+  display: inline-block;
+  background-color: var(--guinda-primario);
+  color: var(--blanco-items);
+  padding: 5px 20px;
+  border-radius: 9999px;
+  transition: background-color 0.2 ease;
+}
+
+.btn:hover{
+  background-color: var(--guinda-secundario);
+
+}
+
+.time{
+  padding-left: 10px;
+}
+
+.footer{
+  background: var(--blanco-items);
+  border: 2px solid var(--borde);
+  color: #817E7E;
+  box-shadow: 0 0 12px rgba(0,0,0,0.4);
+  padding: 25px 10px;
+
+}
+.error{
+  padding: 10px 20px;
+
+}
+.error-title{
+  margin-left: 15px;
+  padding-left: 10px;
+  font-weight: 800;
+}
+
+.table-container {
+  
+  max-height: 400px;       /* altura máxima para la tabla visible */
+  overflow-y: auto;        /* scroll vertical dentro del contenedor */
+  overflow-x: auto;        /* scroll horizontal dentro del contenedor */
+  max-width: 80%;
+
+}
+table {
+  width: max-content;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  white-space: nowrap;
+}
+
+.table-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn_encender{
+  background-color: red;
+}
